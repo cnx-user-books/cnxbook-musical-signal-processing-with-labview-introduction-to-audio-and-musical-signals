@@ -1,0 +1,14 @@
+<col:collection xmlns="http://cnx.rice.edu/collxml" xmlns:col="http://cnx.rice.edu/collxml" xml:lang="en">
+  <metadata xmlns:md="http://cnx.rice.edu/mdml" mdml-version="0.5">
+    <md:content-id>col10481</md:content-id>
+    <md:title>Musical Signal Processing with LabVIEW -- Introduction to Audio and Musical Signals</md:title>
+    <md:language>en</md:language>
+    <md:license url="http://creativecommons.org/licenses/by/2.0/">Creative Commons Attribution License</md:license>
+    <md:uuid>19fa0272-7172-479a-8617-a7e348624350</md:uuid>
+<md:slug>musical-signal-processing-with-labview-introduction-to-audio-and-musical-signals</md:slug>
+</metadata>
+  <col:content>
+    <col:module document="m15439"/>
+    <col:module document="m15440"/>
+  </col:content>
+</col:collection>

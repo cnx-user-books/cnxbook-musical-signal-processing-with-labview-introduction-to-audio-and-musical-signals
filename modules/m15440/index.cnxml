@@ -1,0 +1,195 @@
+<document xmlns="http://cnx.rice.edu/cnxml">
+  <title>[ mini-project ] Musical intervals and the equal-tempered scale</title>
+  <metadata xmlns:md="http://cnx.rice.edu/mdml">
+  <md:content-id>m15440</md:content-id>
+  <md:title>[ mini-project ] Musical intervals and the equal-tempered scale</md:title>
+  <md:abstract>In this mini-project you will learn about musical intervals, and discover the reason behind the choice of frequencies for the tuning system called "equal temperament."</md:abstract>
+  <md:uuid>dfbd88a9-b369-41e0-9251-56b75a810cf6</md:uuid>
+</metadata>
+
+<content>
+
+<table id="labview_banner" frame="none" summary=""><tgroup cols="2">
+<colspec rowsep="0" colsep="0"/> <colspec colwidth="6in" rowsep="0" colsep="0"/>
+<tbody>
+  <row>
+    <entry morerows="3"><media id="idp1571232" alt=""><image src="../../media/LabVIEWbanner.png" mime-type="image/png"/></media></entry>
+    <entry> This module refers to LabVIEW, a software development environment that features a graphical programming language.
+       Please see the <link document="m15428">LabVIEW QuickStart Guide</link> module for tutorials and documentation that will help you:</entry>
+  </row>
+  <row> <entry>• Apply LabVIEW to Audio Signal Processing </entry> </row>
+  <row> <entry>• Get started with LabVIEW</entry> </row>
+  <row> <entry>• Obtain a fully-functional evaluation edition of LabVIEW</entry> </row>
+</tbody>
+</tgroup>
+</table>
+
+
+<section id="sec1">
+<title>Overview</title>
+
+<para id="par2">In this mini-project you will learn about musical intervals, and also discover the reason behind the choice of frequencies for the <term>equal-tempered</term> musical scale.</para>
+
+<para id="par3">Spend some time familiarizing yourself with the piano keyboard below (click <link resource="keyboard_pitches.vi">keyboard_pitches.vi</link> if the embedded LabVIEW VI is not visible). Enter the pitch (letter) and its octave number to display the corresponding frequency. For example, <term>middle C</term> is C4, and C2 is two octaves below middle C. The frequency 440 Hz is an international standard frequency called <term>concert A</term>, and is denoted A4. Concert A is <emphasis>exactly</emphasis> 440 cycles per second, by definition.</para><para id="par4">The black keys are called <term>sharps</term> and are signified by the hash symbol <term>#</term>. For example, G#1 indicates the sharp of G1, and is located to the right of G1.</para>
+
+<para id="vi5">
+<media id="idp715504" alt=""><labview src="keyboard_pitches.llb" viname="keyboard_pitches.vi" version="8.2" mime-type="application/x-labviewrpvi82" height="346" width="975"><param name="lvfppviname" value="keyboard_pitches.vi"/></labview></media>
+</para>
+
+<para id="par6">Try the following exercises to make sure that you can properly interpret the keyboard:</para>
+
+<exercise id="exer7">
+<problem id="idm8645568">
+<para id="par8">What is the frequency of the leftmost black key?</para>
+</problem>
+<solution id="idm9590224">
+<para id="par9">29.14 Hz</para>
+</solution>
+</exercise>
+<exercise id="exer10">
+<problem id="idm9550096">
+<para id="par11">What is the name and frequency of the white key to the immediate left of C7?</para>
+</problem>
+<solution id="idm1185712">
+<para id="par12">B6, 1976 Hz</para>
+</solution>
+</exercise>
+<exercise id="exer13">
+<problem id="idp76032">
+<para id="par14">What is the name of the key that has a frequency of 370.0 Hz?</para>
+</problem>
+<solution id="idm9107984">
+<para id="par15">F#4</para>
+</solution>
+</exercise>
+</section>
+
+<section id="sec16">
+<title>Deliverables</title>
+
+<list id="list17" list-type="enumerated">
+
+<item> Completed <link resource="ams_MP-intervals-worksheet.pdf">mini-project worksheet</link>  </item>
+<item> Hardcopy of your LabVIEW VI from Part 4 (block diagram <emphasis>and</emphasis> front panel) </item>
+
+</list>
+
+</section>
+
+<section id="sec18">
+<title>Part 1</title>
+
+<para id="par19">One aspect of the design of any scale is to allow a melody to be transposed to different keys (e.g., made higher or lower in pitch) while still sounding "the same." For example, you can sing the song "Twinkle, Twinkle Little Star" using many different starting pitches (or frequencies), but everyone can recognize that the melody is the same.</para>
+
+<para id="par20"><media id="idp7357840" alt=""><image src="../../media/LabVIEW.png" mime-type="image/png"/></media> 
+Download and run <link resource="tone_player.vi">tone_player.vi</link>, a that VI accepts a vector of frequencies (in Hz) and plays them as a sequence of notes, each with a duration that you can adjust. Listen to the five-note sequence given by the frequencies 400, 450, 500, 533, and 600 Hz (it should sound like the first five notes of "Do-Re-Mi").</para>
+
+<para id="par21">Now, transpose this melody to a lower initial pitch by subtracting a constant 200 Hz from each pitch; write the frequencies on your <link resource="ams_MP-intervals-worksheet.pdf">mini-project worksheet</link>:</para>
+
+<para id="par22"><media id="idm2673904" alt=""><image src="../../media/LabVIEW.png" mime-type="image/png"/></media> Modify <link resource="tone_player.vi">tone_player.vi</link> by inserting an additional front-panel control so that you can add a constant offset to the array of frequencies. Be sure that you keep the "Actual Frequencies" indicator so that you always know to which frequencies you are listening.</para>
+
+<para id="par23">Set the offset to -200Hz, and listen to the transposed melody. How does the transposed version compare to the original? Does it sound like the same melody? Enter your response on the worksheet:</para>
+
+<para id="par24">Transpose the original melody to a higher initial pitch by adding 200 Hz to each pitch; write the frequencies on your worksheet:</para>
+
+<para id="par25">Set the offset to 200Hz, and listen to the transposed melody. How does the transposed version compare to the original? How does it compare to the version that was transposed to a lower frequency? Enter your response on the worksheet:</para>
+
+<para id="par26">Draw a conclusion: Is a <emphasis>constant</emphasis> frequency offset a good way to transpose a melody?</para>
+
+</section>
+
+<section id="sec27">
+<title>Part 2</title>
+
+<para id="par28">In music theory, an <term>interval</term> is a standard distance between two pitches. For example, if you play middle C, and then the G above that, you have played a <term>perfect fifth</term>. If you start with an F#, then a perfect fifth above that is a C#. The first note you play is called the <term>fundamental</term>.</para>
+
+<para id="par29">Refer back to the piano keyboard diagram at the top of this page. Each step to an adjacent key is called a <term>half step</term> (also known as a <term>semitone</term>).</para>
+
+<para id="par30">If you play middle C (C4 on the diagram), how many half steps up do you need to go in order to play a perfect fifth interval? Enter answer on your worksheet:</para>
+
+<para id="par31">If you begin on A4, which note is a perfect fifth above? Enter answer on your worksheet:</para>
+
+<para id="par32">More intervals are listed below; the musical mnemonic may be helpful to hear the interval in your mind:</para>
+
+<list id="list33" list-type="bulleted">
+
+<item> Minor 2nd - one half step above fundamental (shark theme from "Jaws" movie) </item>
+<item> Major 2nd - two half steps above fundamental ("Do-Re-Mi," first two notes) </item>
+<item> Major 3rd - four half steps ("Kumbaya", first two notes of phrase) </item>
+<item> Perfect 4th - five half steps ("Here Comes the Bride") </item>
+<item> Perfect 5th - seven half steps ("Twinkle, twinkle, little star", first two notes) </item>
+<item> Major 6th - nine half steps ("My Bonnie Lies Over the Ocean," first two notes)  </item>
+<item> Major 7th - eleven half steps ("There's a Place for Us" from West Side Story, first two notes) </item>
+<item> Octave - twelve half steps ("Somewhere Over the Rainbow," first two notes) </item>
+
+</list>
+
+<para id="par34">Listen to each of these intervals by entering the frequencies from the keyboard diagram. Remember to set your offset to zero. Also, you can silence a note by entering zero frequency. For example, if you want to hear a perfect 6th interval beginning at B3, you should use the frequencies 246.9 Hz and 415.3 Hz (G#4).</para>
+
+</section>
+
+<section id="sec35">
+<title>Part 3</title>
+
+<para id="par36">Use C4 as the fundamental. Enter its frequency on your worksheet:</para>
+
+<para id="par37">What is the frequency of a major 3rd above the fundamental? Enter its frequency on your worksheet:</para>
+
+<para id="par38">What is the frequency <emphasis>ratio</emphasis> of the interval? Express your result in the form "a : 1", where "a" corresponds to the higher of the two frequencies. Enter the ratio on your worksheet: </para>
+
+<para id="par39">Repeat the previous three questions using C5 as the fundamental (remember, C5 is one octave above C4). Enter the three values on your worksheet: </para>
+
+<para id="par40">Try this again using A#2 as the fundamental; enter the three values on your worksheet:</para>
+
+<para id="par41">Try this again using several different fundamental pitches for another type of interval.</para>
+
+<para id="par42">Now, draw a conclusion: Based on what you have experienced about musical intervals so far, can you develop at least part of an explanation for why the frequencies have been selected as they have? Enter your comments on the worksheet:</para>
+
+</section>
+
+<section id="sec43">
+<title>Part 4</title>
+
+<para id="par44">A variety of scales or tuning systems have been devised for musical instruments, some dating back several millennia. Scales include <term>Pythagorean tuning</term>, <term>just-tempered</term>, <term>mean-tempered</term>, <term>well-tempered</term>,  (have you heard of Bach's "Well-Tempered Clavichord"?), and <term>equal-tempered</term>. For example, a <term>just-tempered</term> scale uses the following ratios of whole numbers for the intervals:</para>
+
+<list id="list45" list-type="bulleted">
+
+<item> Major 2nd, 9:8 = 1.125:1 </item>
+<item> Major 3rd, 5:4 = _____ : 1  </item>
+<item> Perfect 4th, 4:3 = _____ : 1 </item>
+<item> Perfect 5th, 3:2 = _____ : 1 </item>
+<item> Major 6th, 5:3 = _____ : 1	 </item>
+<item> Major 7th, 15:8 = _____ : 1 </item>
+<item> Octave, 2:1 = _____ : 1 </item>
+
+</list>
+
+<para id="par46">Complete the table above to show each interval as a ratio of the form "a : 1"; enter these ratios on your worksheet:</para>
+
+<para id="par47">Modify your VI so that you can enter a single fundamental frequency (in Hz) and an array of interval ratios to play. Be sure to keep the "Actual Frequencies" indicator so that you always know to what frequencies you are listening!</para>
+
+<para id="par48">Listen to the scale formed by the following sequence of ratios, and use A4 (440 Hz) as the fundamental: 1, 9/8, 5/4, 4/3, 3/2, 5/3, 15/8, 2. Comment on how well this scale sounds to you (enter your comments on your worksheet):</para>
+
+<para id="par49">Transpose the same scale to G4 as the fundamental, and then F4 as the fundamental. Comment on well this scale transposes to different keys (the differences may be rather subtle); enter your comments on the worksheet:</para>
+
+</section>
+
+<section id="sec50">
+<title>Part 5</title>
+
+<para id="par51">The frequencies on the keyboard diagram above show the piano tuned using the <term>equal-tempered</term> scale. An equal-tempered scale sacrifices the pure whole number ratios scheme for intervals, but offers the advantage that a melody transposed to any other key will sound the same. Thus, an equal-tempered scale is a "global compromise" -- a given melody will be the same level of out of tune no matter which key is used for the fundamental. The other scales mentioned above will cause a given melody to sound quite nice in some keys, and quite out of tune in other keys.</para>
+
+<para id="par52">Derive a mathematical function to calculate the frequencies used by the equal-tempered scale, i.e., given a fundamental frequency and a semitone offset, calculate the frequency. For example, when your formula is presented with the frequency 440 Hz and an offset of 2 (i.e., two semitones above concert A), it should return 493.9 Hz. Be sure to show your complete derivation <emphasis>process</emphasis> on your worksheet, and not simply the end result.  </para>
+
+<list id="list53" list-type="bulleted">
+<title> Hints: </title> 
+<item> Your function should include a fundamental frequency "f" in Hz. </item>
+<item> Your function should include a way to calculate the interval selected by the number of semitones (or half steps) above or below the fundamental frequency. </item>
+<item> Your function should double the frequency when you enter 12 semitones above the fundamental (what should it do when you enter 12 semitones below the fundamental?). </item>
+
+</list>
+
+</section>
+
+</content>
+</document>

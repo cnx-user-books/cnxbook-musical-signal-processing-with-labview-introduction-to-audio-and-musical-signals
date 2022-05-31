@@ -1,0 +1,563 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML">
+  <title>Perception of Sound</title>
+  <metadata xmlns:md="http://cnx.rice.edu/mdml">
+  <md:content-id>m15439</md:content-id>
+  <md:title>Perception of Sound</md:title>
+  <md:abstract>A basic understanding of human perception of sound is vital if you wish to design music synthesis algorithms to achieve your goals. In this module you will learn about pitch and frequency, intensity and amplitude, harmonics, and tuning systems. The treatment of these concepts is oriented to the creation of music synthesis algorithms.</md:abstract>
+  <md:uuid>eef3450c-1a1d-40e1-b92a-5485a70d399f</md:uuid>
+</metadata>
+
+<content>
+
+<table id="labview_banner" frame="none" summary=""><tgroup cols="2">
+<colspec rowsep="0" colsep="0"/> <colspec colwidth="6in" rowsep="0" colsep="0"/>
+<tbody>
+  <row>
+    <entry morerows="3"><media id="idp13059040" alt=""><image src="../../media/LabVIEWbanner.png" mime-type="image/png"/></media></entry>
+    <entry> This module refers to LabVIEW, a software development environment that features a graphical programming language.
+       Please see the <link document="m15428">LabVIEW QuickStart Guide</link> module for tutorials and documentation that will help you:</entry>
+  </row>
+  <row> <entry>• Apply LabVIEW to Audio Signal Processing </entry> </row>
+  <row> <entry>• Get started with LabVIEW</entry> </row>
+  <row> <entry>• Obtain a fully-functional evaluation edition of LabVIEW</entry> </row>
+</tbody>
+</tgroup>
+</table>
+
+
+<section id="sec1">
+<title>Introduction</title>
+
+<para id="par2">A basic understanding of human perception of sound is vital if you wish to design music synthesis algorithms to achieve your goals. Human hearing and other senses operate quite well in a relative sense. That is, people perceive properties of sound such as pitch and intensity and make relative comparisons. Moreover, people make these comparisons over an enormous dynamic range: they can listen to two people whispering in a quiet auditorium and determine which person is whispering the loudest. During a rock concert in the same auditorium, attendees can determine which vocalist is singing the loudest. However, once the rock concert is in progress, they can no longer hear someone whispering! Senses can adapt to a wide range of conditions, but can make relative comparisons only over a fairly narrow range.</para>
+
+<para id="par3">In this module you will learn about <term>pitch</term> and <term>frequency</term>, <term>intensity</term> and <term>amplitude</term>, <term>harmonics</term> and <term>overtones</term>, and <term>tuning systems</term>. The treatment of these concepts is oriented to creating music synthesis algorithms. <term>Connexions</term> offers many excellent modules authored by Catherine Schmidt-Jones that treat these concepts in a music theory context, and some of these documents are referenced in the discussion below. For example, <link document="m13246">Acoustics for Music Theory</link> describes acoustics in a musical setting, and is a good refresher on audio signals.</para>
+
+</section>
+
+<section id="sec4">
+<title>Pitch and Frequency</title>
+
+<para id="par5"><term>Pitch</term> is the human perception of <term>frequency</term>. Often the terms are used interchangeably, but they are actually distinct concepts. Musicians normally refer to the pitch of a signal rather than its frequency; see <link document="m10943">Pitch: Sharp, Flat, and Natural Notes</link> and <link document="m10865">The Circle of Fifths</link>.</para>
+
+<para id="par6">Perception of frequency is <term>logarithmic</term> in nature. For example, a change in frequency from 400 Hz to 600 Hz will <emphasis>not</emphasis> sound the same as a change from 200 Hz to 400 Hz, even though the difference between each of these frequency pairs is 200 Hz. Instead, you perceive changes in pitch based on the <term>ratio</term> of the two frequencies; in the previous example, the ratios are 1.5 and 2.0, respectively, and the latter pitch pair would sound like a greater change in frequency. <link document="m11808">Musical Intervals, Frequency, and Ratio</link> offers additional insights.</para>
+
+<para id="par7">Often it is desirable to synthesize an audio signal so that its perceived pitch follows a specific <term>trajectory</term>. For example, suppose that the pitch should begin at a low frequency, gradually increase to a high frequency, and then gradually decrease back to the original. Furthermore, suppose that you should perceive a uniform rate of change in the frequency.</para>
+
+<para id="par8">The screencast video of <link target-id="video-freq-linvslog"/> illustrates two different approaches to this problem, and demonstrates the perceptual effects that result from treating pitch perception as linear instead of logarithmic.</para>
+
+<figure id="video-freq-linvslog"><title><link url="https://youtu.be/eydPOomc0RE" window="new">https://youtu.be/eydPOomc0RE</link> (2:46)</title><media id="eip-idm615716528" display="block" alt="Frequency trajectory and associated spectrogram">
+<video mime-type="video/mpeg" src="https://www.youtube.com/embed/eydPOomc0RE?rel=0" autoplay="false" width="640" height="460"/>
+ </media><caption>[video] Two approaches to the design of a frequency trajectory: one linear, and the other logarithmic
+</caption></figure></section>
+
+<section id="sec10">
+<title>Intensity and Amplitude</title>
+
+<para id="par11">Perception of sound <term>intensity</term> also logarithmic. When you judge one sound to be twice as loud as another, you actually perceive the <term>ratio</term> of the two sound intensities. For example, consider the case of two people talking with one another. You may decide that one person talks twice as loud as the other, and then measure the acoustic power emanating from each person; call these two measurements <m:math>
+ <m:semantics>
+  <m:mrow>
+   <m:msub>
+    <m:mi>T</m:mi>
+    <m:mn>1</m:mn>
+   </m:msub>
+   
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ </m:annotation>
+ </m:semantics>
+</m:math>
+  and <m:math>
+ <m:semantics>
+  <m:mrow>
+   <m:msub>
+    <m:mi>T</m:mi>
+    <m:mn>2</m:mn>
+   </m:msub>
+   
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ </m:annotation>
+ </m:semantics>
+</m:math>
+.  Next, suppose that you are near an airport runway, and decide that the engine noise of one aircraft is twice the intensity of another aircraft (you also measure these intensities as <m:math>
+ <m:semantics>
+  <m:mrow>
+   <m:msub>
+    <m:mi>A</m:mi>
+    <m:mn>1</m:mn>
+   </m:msub>
+   
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ </m:annotation>
+ </m:semantics>
+</m:math>
+and <m:math>
+ <m:semantics>
+  <m:mrow>
+   <m:msub>
+    <m:mi>A</m:mi>
+    <m:mn>2</m:mn>
+   </m:msub>
+   
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ </m:annotation>
+ </m:semantics>
+</m:math>). In terms of acoustic intensity, the difference between the talkers <m:math>
+ <m:semantics>
+  <m:mrow>
+   <m:msub>
+    <m:mi>T</m:mi>
+    <m:mn>2</m:mn>
+   </m:msub>
+   <m:mo>−</m:mo><m:msub>
+    <m:mi>T</m:mi>
+    <m:mn>1</m:mn>
+   </m:msub>
+   
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ </m:annotation>
+ </m:semantics>
+</m:math>
+is negligible compared to the enormous difference in acoustic intensity <m:math>
+ <m:semantics>
+  <m:mrow>
+   <m:msub>
+    <m:mi>A</m:mi>
+    <m:mn>2</m:mn>
+   </m:msub>
+   <m:mo>−</m:mo><m:msub>
+    <m:mi>A</m:mi>
+    <m:mn>1</m:mn>
+   </m:msub>
+   
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ </m:annotation>
+ </m:semantics>
+</m:math>
+. However, the <emphasis>ratios</emphasis> <m:math>
+ <m:semantics>
+  <m:mrow>
+   <m:mrow><m:mrow>
+    <m:msub>
+     <m:mi>T</m:mi>
+     <m:mn>2</m:mn>
+    </m:msub>
+    
+   </m:mrow><m:mo>/</m:mo><m:mrow>
+    <m:msub>
+     <m:mi>T</m:mi>
+     <m:mn>1</m:mn>
+    </m:msub>
+    
+   </m:mrow></m:mrow>
+   
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ </m:annotation>
+ </m:semantics>
+</m:math>
+and <m:math>
+ <m:semantics>
+  <m:mrow>
+   <m:mrow><m:mrow>
+    <m:msub>
+     <m:mi>A</m:mi>
+     <m:mn>2</m:mn>
+    </m:msub>
+    
+   </m:mrow><m:mo>/</m:mo><m:mrow>
+    <m:msub>
+     <m:mi>A</m:mi>
+     <m:mn>1</m:mn>
+    </m:msub>
+    
+   </m:mrow></m:mrow>
+   
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ </m:annotation>
+ </m:semantics>
+</m:math>
+  would be identical.</para>
+
+<para id="par12">The <term>decibel</term> (abbreviated <term>dB</term>) is normally used to describe ratios of acoustic intensity. The decibel is defined in <link target-id="eqn-dB"/>:</para>
+
+<equation id="eqn-dB">
+
+<m:math display="block">
+ <m:semantics>
+  <m:mrow>
+   <m:msub>
+    <m:mi>R</m:mi>
+    <m:mrow>
+     <m:mtext>dB</m:mtext>
+    </m:mrow>
+   </m:msub>
+   <m:mo>=</m:mo><m:mn>10</m:mn><m:msub>
+    <m:mrow>
+     <m:mi>log</m:mi><m:mo>⁡</m:mo>
+    </m:mrow>
+    <m:mrow>
+     <m:mn>10</m:mn>
+    </m:mrow>
+   </m:msub>
+   <m:mrow><m:mo>(</m:mo>
+    <m:mrow>
+     <m:mfrac>
+      <m:mrow>
+       <m:msub>
+        <m:mi>I</m:mi>
+        <m:mn>2</m:mn>
+       </m:msub>
+       
+      </m:mrow>
+      <m:mrow>
+       <m:msub>
+        <m:mi>I</m:mi>
+        <m:mn>1</m:mn>
+       </m:msub>
+       
+      </m:mrow>
+     </m:mfrac>
+     
+    </m:mrow>
+   <m:mo>)</m:mo></m:mrow>
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ </m:annotation>
+ </m:semantics>
+</m:math>
+
+</equation>
+
+<para id="par14">where <m:math>
+ <m:semantics>
+  <m:mrow>
+   <m:msub>
+    <m:mi>I</m:mi>
+    <m:mn>1</m:mn>
+   </m:msub>
+   
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ </m:annotation>
+ </m:semantics>
+</m:math>
+and <m:math>
+ <m:semantics>
+  <m:mrow>
+   <m:msub>
+    <m:mi>I</m:mi>
+    <m:mn>2</m:mn>
+   </m:msub>
+   
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ </m:annotation>
+ </m:semantics>
+</m:math>
+represent two acoustic intensities to be compared, and <m:math>
+ <m:semantics>
+  <m:mrow>
+   <m:msub>
+    <m:mi>R</m:mi>
+    <m:mrow>
+     <m:mtext>dB</m:mtext>
+    </m:mrow>
+   </m:msub>
+   
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ </m:annotation>
+ </m:semantics>
+</m:math>
+denotes the ratio of the two intensities.  </para>
+
+<para id="par15">Acoustic intensity measures power per unit area, with a unit of watts per square meter. The operative word here is <term>power</term>. When designing or manipulating audio signals, you normally think in terms of <term>amplitude</term>, however. The power of a signal is proportional to the <emphasis>square</emphasis> of its amplitude. Therefore, when considering the ratios of two amplitudes <m:math>
+ <m:semantics>
+  <m:mrow>
+   <m:msub>
+    <m:mi>A</m:mi>
+    <m:mn>1</m:mn>
+   </m:msub>
+   
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ </m:annotation>
+ </m:semantics>
+</m:math>
+and <m:math>
+ <m:semantics>
+  <m:mrow>
+   <m:msub>
+    <m:mi>A</m:mi>
+    <m:mn>2</m:mn>
+   </m:msub>
+   
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ </m:annotation>
+ </m:semantics>
+</m:math>, the ratio in decibels is defined as in <link target-id="eqn-dB-amplitude"/>: </para>
+
+<equation id="eqn-dB-amplitude">
+
+<m:math display="block">
+ <m:semantics>
+  <m:mrow>
+   <m:msub>
+    <m:mi>R</m:mi>
+    <m:mrow>
+     <m:mtext>dB</m:mtext>
+    </m:mrow>
+   </m:msub>
+   <m:mo>=</m:mo><m:mn>20</m:mn><m:msub>
+    <m:mrow>
+     <m:mi>log</m:mi><m:mo>⁡</m:mo>
+    </m:mrow>
+    <m:mrow>
+     <m:mn>10</m:mn>
+    </m:mrow>
+   </m:msub>
+   <m:mrow><m:mo>(</m:mo>
+    <m:mrow>
+     <m:mfrac>
+      <m:mrow>
+       <m:msub>
+        <m:mi>A</m:mi>
+        <m:mn>2</m:mn>
+       </m:msub>
+       
+      </m:mrow>
+      <m:mrow>
+       <m:msub>
+        <m:mi>A</m:mi>
+        <m:mn>1</m:mn>
+       </m:msub>
+       
+      </m:mrow>
+     </m:mfrac>
+     
+    </m:mrow>
+   <m:mo>)</m:mo></m:mrow>
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ </m:annotation>
+ </m:semantics>
+</m:math>
+
+</equation>
+
+<para id="par17">Can you explain why "10" becomes "20"? Recall that <m:math>
+ <m:semantics>
+  <m:mrow>
+   <m:mi>log</m:mi><m:mo>⁡</m:mo><m:mo stretchy="false">(</m:mo><m:msup>
+    <m:mi>a</m:mi>
+    <m:mi>b</m:mi>
+   </m:msup>
+   <m:mo stretchy="false">)</m:mo><m:mo>=</m:mo><m:mi>b</m:mi><m:mi>log</m:mi><m:mo>⁡</m:mo><m:mo stretchy="false">(</m:mo><m:mi>a</m:mi><m:mo stretchy="false">)</m:mo>
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ </m:annotation>
+ </m:semantics>
+</m:math>.
+ </para>
+
+<para id="par18">Often it is desirable to synthesize an audio signal so that its perceived intensity will follow a specific <term>trajectory</term>. For example, suppose that the intensity should begin at silence, gradually increase to a maximum value, and then gradually decrease back to silence. Furthermore, suppose that you should perceive a uniform rate of change in intensity.</para>
+
+<para id="par19">The screencast video of <link target-id="video-intensity-linvslog"/> illustrates two different approaches to this problem, and demonstrates the perceptual effects that result from treating intensity perception as linear instead of logarithmic.</para>
+
+<figure id="video-intensity-linvslog"><title><link url="https://youtu.be/ge--0aQWYgw" window="new">https://youtu.be/ge--0aQWYgw</link> (1:40)</title><media id="eip-idm1232709872" display="block" alt="Intensity trajectory and associated waveform plot">
+<video mime-type="video/mpeg" src="https://www.youtube.com/embed/ge--0aQWYgw?rel=0" autoplay="false" width="640" height="460"/>
+ </media>
+<caption>[video] Two approaches to the design of an intensity trajectory: one linear, and the other logarithmic
+</caption></figure></section>
+
+<section id="sec21">
+<title>Harmonics and Overtones</title>
+
+<para id="par22">Musical instruments produce sound composed of a <term>fundamental</term> frequency and <term>harmonics</term> or <term>overtones</term>. The relative strength and number of harmonics produced by an instrument is called <term>timbre</term>, a property that allows the listener to distinguish between a violin, an oboe, and a trumpet that all sound the same pitch. See <link document="m11059">Timbre: The Color of Music</link> for further discussion.</para>
+
+<para id="par23">You perhaps have studied the concept of Fourier series, which states that any periodic signal can be expressed as a sum of sinusoids, where each sinusoid is an exact integer multiple of the fundamental frequency; refer to <link target-id="eqn-fourier-series"/>:</para>
+
+<equation id="eqn-fourier-series">
+
+<!-- MathType@Translator@5@5@MathML2 (m namespace).tdl@MathML 2.0 (m namespace)@ -->
+<m:math>
+ <m:semantics>
+  <m:mrow>
+   <m:mi>f</m:mi><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo><m:mo>=</m:mo><m:msub>
+    <m:mi>a</m:mi>
+    <m:mn>0</m:mn>
+   </m:msub>
+   <m:mo>+</m:mo><m:mstyle displaystyle="true">
+    <m:munderover>
+     <m:mo>∑</m:mo>
+     <m:mrow>
+      <m:mi>n</m:mi><m:mo>=</m:mo><m:mn>1</m:mn>
+     </m:mrow>
+     <m:mi>∞</m:mi>
+    </m:munderover>
+    <m:mrow>
+     <m:msub>
+      <m:mi>a</m:mi>
+      <m:mi>n</m:mi>
+     </m:msub>
+     <m:mi>cos</m:mi><m:mo>⁡</m:mo><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mn>2</m:mn><m:mi>π</m:mi><m:msub>
+      <m:mi>f</m:mi>
+      <m:mn>0</m:mn>
+     </m:msub>
+     <m:mi>t</m:mi><m:mo stretchy="false">)</m:mo><m:mo>+</m:mo>
+    </m:mrow>
+   </m:mstyle><m:msub>
+    <m:mi>b</m:mi>
+    <m:mi>n</m:mi>
+   </m:msub>
+   <m:mi>sin</m:mi><m:mo>⁡</m:mo><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mn>2</m:mn><m:mi>π</m:mi><m:msub>
+    <m:mi>f</m:mi>
+    <m:mn>0</m:mn>
+   </m:msub>
+   <m:mi>t</m:mi><m:mo stretchy="false">)</m:mo>
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aqatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYb1uaebbnrfifHhDYfgasaacH8YjY=vipgYlh9vqqj=hEeeu0xXdbba9frFj0=OqFfea0dXdd9vqai=hGuQ8kuc9pgc9q8qqaq=dir=f0=yqaiVgFr0xfr=xfr=xb9adbaqaaeGaciGaaiaabeqaamaabaabaaGcbaGaamOzaiaacIcacaWG0bGaaiykaiabg2da9iaadggadaWgaaWcbaGaaGimaaqabaGccqGHRaWkdaaeWbqaaiaadggadaWgaaWcbaGaamOBaaqabaGcciGGJbGaai4BaiaacohacaGGOaGaamOBaiaaikdacqaHapaCcaWGMbWaaSbaaSqaaiaaicdaaeqaaOGaamiDaiaacMcacqGHRaWkaSqaaiaad6gacqGH9aqpcaaIXaaabaGaeyOhIukaniabggHiLdGccaWGIbWaaSbaaSqaaiaad6gaaeqaaOGaci4CaiaacMgacaGGUbGaaiikaiaad6gacaaIYaGaeqiWdaNaamOzamaaBaaaleaacaaIWaaabeaakiaadshacaGGPaaaaa@5C86@</m:annotation>
+ </m:semantics>
+</m:math>
+<!-- MathType@End@5@5@ -->
+
+</equation>
+
+<para id="par25">where <m:math>
+ <m:semantics>
+  <m:mrow>
+   <m:msub>
+    <m:mi>f</m:mi>
+    <m:mn>0</m:mn>
+   </m:msub>
+   
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ </m:annotation>
+ </m:semantics>
+</m:math>
+is the fundamental frequency (in Hz), <m:math>
+ <m:semantics>
+  <m:mi>n</m:mi>
+ <m:annotation encoding="MathType-MTEF">
+ </m:annotation>
+ </m:semantics>
+</m:math>
+denotes the harmonic number, and <m:math>
+ <m:semantics>
+  <m:mrow>
+   <m:msub>
+    <m:mi>a</m:mi>
+    <m:mn>0</m:mn>
+   </m:msub>
+   
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ </m:annotation>
+ </m:semantics>
+</m:math>
+is the DC (constant) offset.   </para>
+
+<para id="par26">When an instrument produces overtones whose frequencies are essentially integer multiples of the fundamental, you do not perceive all of the overtones as distinct frequencies. Instead, you perceive a single tone; the harmonics <term>fuse</term> together into a single sound. When the overtones follow some other arrangement, you perceive multiple tones. Consider the screencast video in <link target-id="video-resonance"/> which explains why physical instruments tend to produce overtones at  approximately integer multiples of a fundamental frequency.</para>
+
+<figure id="video-resonance"><title><link url="https://youtu.be/-EFZX27InBc" window="new">https://youtu.be/-EFZX27InBc</link> (2:49)</title><media id="eip-idm872745456" display="block" alt="Trumpet as an example wind instrument">
+<video mime-type="video/mpeg" src="https://www.youtube.com/embed/-EFZX27InBc?rel=0" autoplay="false" width="640" height="460"/>
+ </media>
+<caption>[video] Why musical instruments produce overtones at approximately integer multiples of a fundamental frequency 
+</caption></figure><para id="par28">Musicians broadly categorize combinations of tones as either <term>harmonious</term> (also called <term>consonant</term>) or <term>inharmonious</term> (also called <term>dissonant</term>). Harmonious combinations seem to "fit well" together, while inharmonious combinations can sound "rough" and exhibit <term>beating</term>. The screencast video in <link target-id="video-harmonious"/> demonstrates these concepts using sinusoidal tones played by a synthesizer.</para>
+
+<figure id="video-harmonious"><title><link url="https://youtu.be/z_UG-jZDuu0" window="new">https://youtu.be/z_UG-jZDuu0</link> (5:11)</title><media id="eip-idm1671685616" display="block" alt="Spectrogram of several harmonious sounds">
+<video mime-type="video/mpeg" src="https://www.youtube.com/embed/z_UG-jZDuu0?rel=0" autoplay="false" width="640" height="460"/>
+ </media>
+<caption>[video] Illustration of harmonious and inharmonious sounds using sinusoidal tones
+</caption></figure><para id="par30">Please refer to the documents <link document="m11953">Consonance and Dissonance</link> and <link document="m11654">Harmony</link> for more information.</para>
+
+</section>
+
+<section id="sec31">
+<title>Tuning Systems</title>
+
+<para id="par32">A <term>tuning system</term> defines a relatively small number of pitches that can be combined into a wide variety of harmonic combinations; see <link document="m11639">Tuning Systems</link> for an excellent treatment of this subject.</para>
+
+<para id="par33">The vast majority of Western music is based on the tuning system called <term>equal temperament</term> in which the <term>octave interval</term> (a 2:1 ratio in frequency) is equally subdivided into 12 subintervals called <term>semitones</term>.</para>
+
+<para id="par34">Consider the 88-key piano keyboard below (click <link resource="keyboard_pitches.vi">keyboard_pitches.vi</link> if the embedded LabVIEW VI is not visible). Each adjacent pair of keys is one semitone apart (you perhaps are more familiar with the equivalent term <term>half step</term>). Select some pitches and octave numbers and view the corresponding frequency. In particular, try pitches that are an octave apart (e.g., A3, A4, and A5) and note how the frequency doubles as you go towards the higher-frequency side of the keyboard. Also try some single semitone intervals like A0 and A#0, and A7 and A#7. </para><para id="vi35"><media id="eip-idm546537280" display="block" alt="keyboard pitches VI">
+  <labview mime-type="application/x-labview-vi" viname="keyboard_pitches.vi" version="8.2" src="keyboard_pitches.vi"/>
+</media>
+</para><para id="par36">The frequency values themselves may seem rather mysterious. For example, "middle C" (C4) is 261.6 Hz. Why "261.6" exactly? Would "262" work just as well? Humans can actually perceive differences in the sub-Hz range, so 0.6 Hz is actually noticeable. Fortunately an elegantly simple equation exists to calculate any frequency you like. The screencast video of <link target-id="video-equal-tempered"/> explains how to derive this equation that you can use in your own music synthesis algorithms. Watch the video, then try the exercises to confirm that you understand how to use the equation.</para>
+
+<figure id="video-equal-tempered"><title><link url="https://youtu.be/RkUYtbUDons" window="new">https://youtu.beRkUYtbUDons</link> (9:22)</title><media id="eip-idm624831648" display="block" alt="Piano keyboard with selected semitone numbers">
+<video mime-type="video/mpeg" src="https://www.youtube.com/embed/RkUYtbUDons?rel=0" autoplay="false" width="640" height="460"/>
+ </media>
+
+<caption>[video] Derivation of equation to convert semitones to frequencies
+</caption></figure><exercise id="exer38">
+<problem id="idp10648928">
+<para id="par39">What is the frequency seven semitones above concert A (440 Hz)?</para>
+</problem>
+<solution id="idp10201424">
+<para id="par40">659.3 Hz (n=7)</para>
+</solution>
+</exercise>
+<exercise id="exer41">
+<problem id="idp8317920">
+<para id="par42">What is the frequency six semitones below concert A (440 Hz)?</para>
+</problem>
+<solution id="idp10494656">
+<para id="par43">311.1 Hz (n=-6)</para>
+</solution>
+</exercise>
+<exercise id="exer44">
+<problem id="idp9631792">
+<para id="par45">1 kHz is approximately how many semitones away from concert A (440 Hz)? Hint: <m:math>
+ <m:semantics>
+  <m:mrow>
+   <m:msub>
+    <m:mrow>
+     <m:mi>log</m:mi><m:mo>⁡</m:mo>
+    </m:mrow>
+    <m:mn>2</m:mn>
+   </m:msub>
+   <m:mo stretchy="false">(</m:mo><m:mi>x</m:mi><m:mo stretchy="false">)</m:mo><m:mo>=</m:mo><m:mfrac>
+    <m:mrow>
+     <m:msub>
+      <m:mrow>
+       <m:mi>log</m:mi><m:mo>⁡</m:mo>
+      </m:mrow>
+      <m:mi>a</m:mi>
+     </m:msub>
+     <m:mo stretchy="false">(</m:mo><m:mi>x</m:mi><m:mo stretchy="false">)</m:mo>
+    </m:mrow>
+    <m:mrow>
+     <m:msub>
+      <m:mrow>
+       <m:mi>log</m:mi><m:mo>⁡</m:mo>
+      </m:mrow>
+      <m:mi>a</m:mi>
+     </m:msub>
+     <m:mo stretchy="false">(</m:mo><m:mn>2</m:mn><m:mo stretchy="false">)</m:mo>
+    </m:mrow>
+   </m:mfrac>
+   
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ </m:annotation>
+ </m:semantics>
+</m:math>. In other words, the base-2 log of a value can be calculated using another base (your calculator has log base 10 and natural log). </para>
+</problem>
+<solution id="idp10874144">
+<para id="par46">14</para>
+</solution>
+</exercise>
+</section>
+
+</content>
+</document>
